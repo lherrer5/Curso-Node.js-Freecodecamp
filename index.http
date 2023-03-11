@@ -1,0 +1,27 @@
+#En este archivo pruebo todas mis solicitudes
+
+# POST ruta verisonHTTP tipoDcontenido infoAenviar
+
+POST http://localhost:3000/api/cursos/matematicas HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":3,
+    "titulo":"Aprende aritmetica",
+    "tema":"aritmetica",
+    "vistas":"157800",
+    "nivel":"basico"
+}
+
+###
+#PUT ruta agredo al final id a modificar verisonHTTP tipoDcontenido infoAenviar
+PUT http://localhost:3000/api/cursos/programacion/2 HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":4,
+    "titulo":"Python intermedio",
+    "tema":"python",
+    "vistas":"200000",
+    "nivel":"intermedio"
+}
