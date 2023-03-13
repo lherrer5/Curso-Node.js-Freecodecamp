@@ -10,6 +10,8 @@ routerProgramacion.use(express.json());
 const{programacion}=require('../datos/cursos').infoCursos
 
 routerProgramacion.get('/', (req,res)=>{
+    //.send envia la respuesta en formato .json x lo q no es necesario escribir (JSON.stringify(programacion))
+    //y en vez de .send puedo usar .json q convierte el argumento a f}este formato antes d enviarlo
     res.send(JSON.stringify(programacion))
 });
 
@@ -59,10 +61,45 @@ routerProgramacion.put('/:id', (req,res)=>{
     if(indice>=0){
         //cojo arreglo del archivo cursos con indice y le asigno el nuevo
         programacion[indice]=cursoActualizado;
+    }else{
+        res.status(404).send();
     }
     res.send(JSON.stringify(programacion))
 }
-    )
+)
+
+//PACTH: para actualizar solo una pequeña parte de un registro existente
+routerProgramacion.patch('/:id', (req,res)=>{
+    //recibo la info q voy a actualizar
+    const infoActualizada=req.body;
+    //extraigo id del curso
+    const id=req.params.id;
+    //encuentro el indice 
+    const indice=programacion.findIndex(curso=>curso.id==id);
+    if(indice>=0){
+        //obtengo el curso q voy a modificar
+        const cursoAmodificar= programacion[indice];
+        //uso metodo .assign q m permite adctualizar solo la parte q quiero poniendo el target y 
+        //la clave valor nueva q guardo en info actualizada segun lo q pase el cliente
+        Object.assign(cursoAmodificar, infoActualizada);
+    }
+    res.send(JSON.stringify(programacion))
+}
+)
+
+//DELETE
+routerProgramacion.delete('/:id', (req,res)=>{
+    //extraigo id del curso a eliminar (no necesita body xq no le voy a "pasar"nada)
+    const id=req.params.id;
+    //encuentro el indice 
+    const indice=programacion.findIndex(curso=>curso.id==id);
+    if(indice>=0){
+        //con .splice "corto" el indice e indico q sólo elimino 1 elemento (el cortado)
+        programacion.splice(indice, 1);
+    }
+    res.send(JSON.stringify(programacion))
+}
+)
 
 //Exporto router
 module.exports= routerProgramacion;

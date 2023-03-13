@@ -28,9 +28,6 @@ app.get('/api/cursos', (req,res)=>{
 
 
 
-
-
-
 //para que mi servidor empiece a escuchar solicitudes. Le especifico el puerto en 1er argumento y 2do funcion flecha q indica q hacer al escuchar 
 //En la realidad cuando publico mi app en servicio externo, se me asigna el puerto dinamicamente por lo que pa tomar el puerto de las variables de 
 // ambiente, uso process.env.port
